@@ -3,7 +3,8 @@
     const { default: fetch } = await import('node-fetch');
     // Your code using fetch here
 })();
-const fs = require('fs');
+import fs from 'fs';
+//const fs = require('fs');
 const today = new Date();
 const monthAgo = new Date(today);
 monthAgo.setDate(today.getDate() - 28);
