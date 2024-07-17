@@ -1,6 +1,9 @@
 version: 2.1
 
 jobs:
+
+
+
   fetch-and-deploy:
     docker:
       - image: cimg/node:14.0
@@ -9,6 +12,9 @@ jobs:
       - run:
           name: Install dependencies
           command: npm install
+      - run:
+          name: Run tests
+          command: npm test
       - run:
           name: Execute fetchEarthquakeData.js file
           command: node fetchEarthquakeData.js
