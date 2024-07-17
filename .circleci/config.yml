@@ -1,12 +1,9 @@
 version: 2.1
 
 jobs:
-
-
-
   fetch-and-deploy:
     docker:
-      - image: cimg/node:20.15.0
+      - image: cimg/node:20.15
     steps:
       - checkout
       - run:
