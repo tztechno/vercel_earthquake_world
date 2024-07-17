@@ -1,7 +1,7 @@
 version: 2.1
 
 jobs:
-  fetch-and-deploy:
+  build:
     docker:
       - image: cimg/node:20.15
     steps:
@@ -12,29 +12,9 @@ jobs:
       - run:
           name: Run tests
           command: npm test
-      - run:
-          name: Execute fetchEarthquakeData.js file
-          command: node fetchEarthquakeData.js
-      - run:
-          name: Configure Git
-          command: |
-            git config user.email "stpete@outlook.jp"
-            git config user.name "stpeteishii"
-      - run:
-          name: Commit and Push changes
-          command: |
-            git add now.js now.json
-            git diff --quiet && git diff --staged --quiet || (git commit -m "Add generated files [skip ci]" && git push origin main)
 
 workflows:
   version: 2
-  scheduled-workflow:
-    triggers:
-      - schedule:
-          cron: "0 14 * * 3"  # 日本時間の水曜日午後11時（UTC時間では水曜日午後2時）
-          filters:
-            branches:
-              only:
-                - main
+  build-and-test:
     jobs:
-      - fetch-and-deploy
+      - build
