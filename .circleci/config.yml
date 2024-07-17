@@ -1,59 +1,37 @@
-
 version: 2.1
 
 jobs:
-  build:
+  fetch-and-deploy:
     docker:
-      - image: circleci/node:latest
-
+      - image: cimg/node:14.0
     steps:
       - checkout
-
-      # JavaScriptファイルを実行して生成されたファイルを取得
+      - run:
+          name: Install dependencies
+          command: npm install
       - run:
           name: Execute fetchEarthquakeData.js file
-          command: node fetchEarthquakeData
-
-      # 生成されたファイルをリポジトリに追加
-      - persist_to_workspace:
-          root: .
-          paths:
-            - now.js
-            - now.json
-
-  deploy:
-    docker:
-      - image: circleci/node:latest
-
-    steps:
-      - attach_workspace:
-          at: .
-
-      # ワークスペースから生成されたファイルを取得
+          command: node fetchEarthquakeData.js
       - run:
-          name: Copy generated files
-          command: cp now.js now.json ~/DockerProjects/js_fetchEarthquakeData
-
-      # リポジトリに変更をコミットしてプッシュ
+          name: Configure Git
+          command: |
+            git config user.email "your-email@example.com"
+            git config user.name "Your Name"
       - run:
           name: Commit and Push changes
           command: |
-            git add now.js now.json;
-            git commit -m "Add generated files";
-            git push -u origin main
-            
+            git add now.js now.json
+            git diff --quiet && git diff --staged --quiet || (git commit -m "Add generated files [skip ci]" && git push origin main)
+
 workflows:
   version: 2
-  build-and-deploy:
-    jobs:
-      - build
-      - deploy:
-          requires:
-            - build
+  scheduled-workflow:
     triggers:
       - schedule:
-          cron: "0 20 * * 4"  # 毎週木曜日の午後11時に実行
+          cron: "0 23 * * 3"  # 毎週水曜日の午後11時に実行（UTC時間）
           filters:
             branches:
               only:
                 - main
+    jobs:
+      - fetch-and-deploy
