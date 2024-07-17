@@ -28,7 +28,7 @@ workflows:
   scheduled-workflow:
     triggers:
       - schedule:
-          cron: "0 23 * * 3"  # 毎週水曜日の午後11時に実行（UTC時間）
+          cron: "0 14 * * 3"  # 日本時間の水曜日午後11時（UTC時間では水曜日午後2時）
           filters:
             branches:
               only:
