@@ -1,8 +1,8 @@
 
 ---
 ```
-$ node fetchEarthquakeData
-$ bash script.sh
+node fetchEarthquakeData
+bash script.sh
 
 now.json & now.js are generated.
 now.js is read in emap_now.html.
@@ -15,7 +15,7 @@ git init
 git remote add origin https://github.com/tztechno/vercel_earthquake.git
 git pull origin main  
 git add .
-git commit -m "data updated"
+git commit -m "2024-07-18"
 git push -u origin main
 
 git push -f origin main
