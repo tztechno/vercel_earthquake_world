@@ -15,7 +15,7 @@ git remote add origin https://github.com/tztechno/vercel_earthquake.git
 git pull origin main  
 
 git add .
-git commit -m "2024-07-26"
+git commit -m "2024-08-08"
 git push -u origin main
 
 git push -f origin main
