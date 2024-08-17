@@ -21,6 +21,8 @@ git push -u origin main
 git push -f origin main
 
 
+データ更新はこれで行う
+
 bash script.sh
 -------------------------
 node fetchEarthquakeData.js
