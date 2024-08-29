@@ -8,14 +8,14 @@ import fs from 'fs';
 const today = new Date();
 const monthAgo = new Date(today);
 monthAgo.setDate(today.getDate() - 28);
-
+// for world
 const start = monthAgo.toISOString().split('T')[0];
 const end = today.toISOString().split('T')[0];
 const mag = 2.0;
-const maxLat = 48;
-const minLat = 25;
-const maxLong = 154;
-const minLong = 122;
+const maxLat = 90;
+const minLat = -90;
+const maxLong = 180;
+const minLong = -180;
 
 const url = `https://earthquake.usgs.gov/fdsnws/event/1/query.geojson?starttime=${start}T00:00:00&endtime=${end}T23:59:59&maxlatitude=${maxLat}&minlatitude=${minLat}&maxlongitude=${maxLong}&minlongitude=${minLong}&minmagnitude=${mag}&orderby=time`;
 
